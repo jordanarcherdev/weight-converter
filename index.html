@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Weight Converter</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<style>
+  body{
+    margin-top: 70px;
+    background: #333;
+    color: #fff;
+  }
+  .card-primary{
+    background: blue;
+  }
+
+  .card-success{
+    background: green;
+  }
+  .red{
+    background: red;
+  }
+  .radios{
+    margin-left: 25px;
+  }
+  .yellow{
+    background: yellow;
+  }
+  .btn{
+    margin-left: 250px;
+  }
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <button class="btn btn-primary" onClick="window.location.reload()">Reset</button>
+        <h1 class="display-4 text-center mb-3">Weight Converter</h1>
+        <form>
+          <div class="form-group">
+            <input id="lbsInput" type="number" class="form-control form-control-lg" placeholder="Enter Weight...">
+          </div>
+          <div class="radios">
+            <input id="lbsRadio" class="radios" type="checkbox" name="lbs" value="Pounds">Pounds
+            <input id="kgRadio" class="radios" type="checkbox" name="kg" value="Kilograms">Kilograms
+            <input id="ozRadio" class="radios" type="checkbox" name="oz" value="Ounces">Ounces
+            <input id="gRadio" class="radios" type="checkbox" name="grams" value="Grams">Grams
+          </div>
+        </form>
+        <div id="output">
+          <div class="card card-primary mb-2">
+            <div class="card-block">
+              <h4>Grams: </h4>
+              <div id="gramsOutput"></div>
+            </div>
+          </div>
+
+          <div class="card card-success mb-2">
+            <div class="card-block">
+              <h4>Kilograms: </h4>
+              <div id="kgOutput"></div>
+            </div>
+          </div>
+
+          <div class="card red mb-2">
+            <div class="card-block">
+              <h4>Ounces: </h4>
+              <div id="ozOutput"></div>
+            </div>
+          </div>
+
+          <div class="card yellow mb-2">
+            <div class="card-block">
+              <h4>Pounds: </h4>
+              <div id="lbsOutput"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('output').style.visibility = 'hidden';
+    document.getElementById('lbsInput').addEventListener('input', function(e){
+      document.getElementById('output').style.visibility = 'visible';
+      if(document.getElementById('lbsRadio').checked){
+        let lbs = e.target.value;
+        document.getElementById('gramsOutput').innerHTML = lbs/0.0022046;
+        document.getElementById('kgOutput').innerHTML = lbs/2.2046;
+        document.getElementById('ozOutput').innerHTML = lbs*16;
+        document.getElementById('lbsOutput').style.visibility = 'hidden';
+        document.getElementById('lbsRadio').reset();
+      }else if(document.getElementById('gRadio').checked){
+        let grams = e.target.value;
+        document.getElementById('gramsOutput').style.visibility = 'hidden';
+        document.getElementById('lbsOutput').innerHTML = grams*0.0022046;
+        document.getElementById('kgOutput').innerHTML = grams/1000;
+        document.getElementById('ozOutput').innerHTML = grams/28.35;
+        document.getElementById('gRadio').reset();
+      }else if(document.getElementById('ozRadio').checked){
+        let oz = e.target.value;
+        document.getElementById('lbsOutput').innerHTML = oz/16;
+        document.getElementById('kgOutput').innerHTML = oz*0.02834952;
+        document.getElementById('ozOutput').style.visibility = 'hidden';
+        document.getElementById('gramsOutput').innerHTML = oz*28.35;
+        document.getElementById('ozRadio').reset();
+      }else if(document.getElementById('kgRadio').checked){
+        let kg = e.target.value;
+        document.getElementById('lbsOutput').innerHTML = kg*2.2046;
+        document.getElementById('kgOutput').style.visibility = 'hidden';
+        document.getElementById('ozOutput').innerHTML = kg/0.02834952;
+        document.getElementById('gramsOutput').innerHTML = kg*1000;
+        document.getElementById('kgRadio').reset();
+      }
+    });
+  </script>
+</body>
+</html>
